@@ -190,6 +190,9 @@
 
 <script>
 
+    //====== 관련 전역변수 =====//
+    const API_BASE_URL = '/api/v1/boards';
+
     const $cardContainer = document.querySelector('.card-container');
 
     //================= 삭제버튼 스크립트 =================//
@@ -203,9 +206,29 @@
             console.log('삭제버튼 클릭');
             modal.style.display = 'flex'; // 모달 창 띄움
 
+            // 여기서 클릭한 x버튼의 근처에 있는 card의 ID를 찾기
+            const id = e.target
+                .closest('.card-wrapper')
+                .querySelector('.card')
+                .dataset.bno;
+
+
             // 확인 버튼 이벤트
             confirmDelete.onclick = e => {
-                // 삭제 처리 로직 - 서버에 DELETE 요청
+                // 삭제 처리 로직 - 서버에 DELETE요청
+                const fetchDeleteBoard = async (id) => {
+                    const res = await fetch(`\${API_BASE_URL}/\${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (res.status === 200) {
+                        fetchGetBoardList();
+                    } else {
+                        alert('삭제 실패!');
+                    }
+                };
+
+
+                fetchDeleteBoard(id);
 
                 modal.style.display = 'none'; // 모달 창 닫기
             };
@@ -272,8 +295,7 @@
     document.querySelector('.add-btn').onclick = e => {
         window.location.href = '/board/write';
     };
-    //====== 관련 전역변수 =====//
-    const API_BASE_URL = '/api/v1/boards';
+
 
     //====== 일반 함수 ======//
     // 화면에 게시물배열을 렌더링

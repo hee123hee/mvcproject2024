@@ -1,9 +1,7 @@
 package com.spring.mvcproject.board.api;
 
 import com.spring.mvcproject.board.entity.Board;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -42,6 +40,11 @@ public class BoardApiController {
     }
 
     // 게시물 삭제 DELETE
+    @DeleteMapping("/{id}")
+    public String deleteBoard(@PathVariable Long id) {
+        Board removed = boardStore.remove(id);
+        return "게시물 삭제 성공! - " + removed;
+    }
 
     // 게시물 등록 POST
 }

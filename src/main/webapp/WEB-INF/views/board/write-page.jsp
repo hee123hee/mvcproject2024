@@ -217,6 +217,10 @@
         console.log(formData.get('title'));
         console.log(formData.get('content'));
 
+        // 서버로 POST요청 보내기
+
+        // 성공시 window.location.href='/board/list';
+
     });
 </script>
 
