@@ -74,7 +74,7 @@ public class ProductController {
     @GetMapping("/{id}")
     @ResponseBody  // JSON 응답
     public Product getProduct(
-           @PathVariable Long id
+            @PathVariable Long id
     ) {
         System.out.println("/products/%s  : GET 요청이 들어옴!".formatted(id));
         System.out.println("id = " + id);
@@ -118,9 +118,10 @@ public class ProductController {
     // 상품 수정 요청
     @PutMapping("/{id}")
     public String updateProduct(
+
             @PathVariable Long id,
             @RequestParam("name") String newName,
-            @RequestParam("price") int newPrice
+            @RequestParam("Price") int newPrice
     ) {
         // 비즈니스 로직
         Product foundProduct = productStore.get(id);
@@ -134,9 +135,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public String deleteProduct(
             @PathVariable Long id
-    ) {
+    ){
         productStore.remove(id);
         return id + "번 상품이 삭제되었습니다.";
     }
 
 }
+
